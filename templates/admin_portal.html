@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Forest Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#111827',
+                        accent: '#34D399',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900 min-h-screen flex flex-col">
+    <nav class="bg-secondary shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-primary font-bold text-xl">Cloud Forest</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-secondary sm:text-5xl md:text-6xl">Admin Portal</h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Add Tree Form -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 text-primary">Add Tree</h2>
+                <form action="{{ url_for('admin_portal') }}" method="post" class="space-y-4">
+                    <input type="hidden" name="action" value="add">
+                    <div>
+                        <label for="farmer_name" class="block text-sm font-medium text-gray-700">Farmer Name</label>
+                        <input type="text" id="farmer_name" name="farmer_name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                        <input type="text" id="location" name="location" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="cptpm" class="block text-sm font-medium text-gray-700">CPTPM</label>
+                        <input type="text" id="cptpm" name="cptpm" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="trees_available" class="block text-sm font-medium text-gray-700">Trees Available</label>
+                        <input type="number" id="trees_available" name="trees_available" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="rental_period" class="block text-sm font-medium text-gray-700">Rental Period</label>
+                        <input type="text" id="rental_period" name="rental_period" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-accent transition duration-300">Add Tree</button>
+                </form>
+            </div>
+
+            <!-- Update Tree Form -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 text-primary">Update Tree</h2>
+                <form action="{{ url_for('admin_portal') }}" method="post" class="space-y-4">
+                    <input type="hidden" name="action" value="update">
+                    <div>
+                        <label for="id" class="block text-sm font-medium text-gray-700">Tree ID</label>
+                        <input type="number" id="id" name="id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="farmer_name" class="block text-sm font-medium text-gray-700">Farmer Name</label>
+                        <input type="text" id="farmer_name" name="farmer_name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                        <input type="text" id="location" name="location" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="cptpm" class="block text-sm font-medium text-gray-700">CPTPM</label>
+                        <input type="text" id="cptpm" name="cptpm" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="trees_available" class="block text-sm font-medium text-gray-700">Trees Available</label>
+                        <input type="number" id="trees_available" name="trees_available" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="rental_period" class="block text-sm font-medium text-gray-700">Rental Period</label>
+                        <input type="text" id="rental_period" name="rental_period" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="customer" class="block text-sm font-medium text-gray-700">Customer</label>
+                        <input type="text" id="customer" name="customer" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-accent transition duration-300">Update Tree</button>
+                </form>
+            </div>
+
+            <!-- Delete Tree Form -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 text-primary">Delete Tree</h2>
+                <form action="{{ url_for('admin_portal') }}" method="post" class="space-y-4">
+                    <input type="hidden" name="action" value="delete">
+                    <div>
+                        <label for="id" class="block text-sm font-medium text-gray-700">Tree ID</label>
+                        <input type="number" id="id" name="id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <button type="submit" class="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300">Delete Tree</button>
+                </form>
+            </div>
+
+            <!-- All Trees List -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:col-span-2">
+                <h2 class="text-xl font-semibold mb-4 text-primary">All Trees</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Farmer Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPTPM</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trees Available</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rental Period</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for tree in trees %}
+                            <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.id }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.farmer_name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.location }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.cptpm }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.trees_available }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.rental_period}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tree.customer }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-secondary">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2024 Cloud Forest. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        Privacy Policy
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        Terms of Service
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
