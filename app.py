@@ -16,6 +16,18 @@ def get_db_connection():
 def home():
     return render_template('index.html')
 
+@app.route('/check_password', methods=['POST'])
+def check_password():
+    data = request.get_json()
+    password = data.get('password')
+
+    # Replace 'your_secure_password' with your actual secure password
+    if password == 'password':
+        return {'success': True}
+    else:
+        return {'success': False}
+
+
 @app.route('/tree_listings')
 def tree_listings():
     conn = get_db_connection()
@@ -29,6 +41,18 @@ def tree_listings():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+
+    # Append the data to a file
+    with open('submissions.txt', 'a') as file:
+        file.write(f"Name: {name}\nEmail: {email}\nMessage: {message}\n\n")
+
+    return redirect(url_for('contact'))
 
 @app.route('/admin_portal', methods=['GET', 'POST'])
 def admin_portal():
